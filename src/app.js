@@ -5,6 +5,11 @@ const port = process.env.PORT || 8080;
 const trads = require("./data-trad.json")
 
 app.use(express.static('src/public'));
+app.use((req, res, next) => {
+    // Ajouter l'attribut "Cache-Control" avec une durée de mise en cache de 1 heure
+    res.setHeader('Cache-Control', 'max-age=3600');
+    next();
+});
 
 app.get("/api", (req, res) => {
     res.send({msg: "hello world"})
